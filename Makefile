@@ -14,8 +14,11 @@ juice-shop-kill:
 	@docker kill $$(docker ps -a -q --filter ancestor=bkimminich/juice-shop --format="{{.ID}}")
 
 get-gruyere:
-	@docker pull karthequian/gruyere:v2
+	@docker pull karthequian/gruyere:latest
 
 gruyere-start:
-	@docker run --rm -d -p 8008:8008 wickett/gruyere
+	@docker run --rm -d -p 8008:8008 karthequian/gruyere:latest
 	@echo "Gruyere is now serving dairy at localhost:8008..."
+
+gruyere-kill:
+	@docker kill $$(docker ps -a -q --filter ancestor=karthequian/gruyere:latest --format="{{.ID}}")

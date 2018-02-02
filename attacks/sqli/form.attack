@@ -1,0 +1,17 @@
+@reallyslow
+Feature: Run sqlmap against our target and test any web forms on the page
+  # See: https://github.com/sqlmapproject/sqlmap/wiki/Usage
+
+Scenario: Identify SQL injection vulnerabilities on the login page
+  Given "sqlmap" is installed
+  And the following profile:
+    | name        | value                                       |
+    | target_url  | http://docker.for.mac.localhost:8008/login  |
+  When I launch a "sqlmap" attack with:
+    """
+    python <sqlmap_path> -u <target_url> -v 1 --batch --forms --dbms sqlite -p uid,pw
+    """
+  Then the output should contain:
+    """
+    all tested parameters do not appear to be injectable
+    """
