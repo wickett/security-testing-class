@@ -1,3 +1,22 @@
+# This is the default action, it's always the first target
+# .PHONY <target> at the end of the build step. Common phony targets
+# are: clean, install, run,...
+# Otherwise, if somebody creates an install directory, make will
+# silently fail, because the build target already exists.
+
+.PHONY: help print
+
+help:
+	@echo "Run make with:"
+	@echo " > get-juice-shop           ...to docker pull the juice-shop docker image"
+	@echo " > juice-shop               ...to start the juice-shop"
+	@echo " > juice-shop-start         ...to start the juice-shop"
+	@echo " > juice-shop-stop          ...to stop the juice-shop"
+	@echo " > juice-shop-kill          ...to docker kill the juice-shop"
+	@echo " > get-gruyere              ...to docker pull the gruyere docker image"
+	@echo " > gruyere-start            ...to start the gruyere docker image"
+	@echo " > gruyere-kill             ...to docker kill the gruyere docker image"
+
 get-juice-shop:
 	@docker pull bkimminich/juice-shop
 
@@ -22,3 +41,5 @@ gruyere-start:
 
 gruyere-kill:
 	@docker kill $$(docker ps -a -q --filter ancestor=karthequian/gruyere:latest --format="{{.ID}}")
+
+.DEFAULT_GOAL := help
