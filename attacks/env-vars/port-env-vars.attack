@@ -1,0 +1,14 @@
+Feature: check to make sure the right ports are open on our server that we set in our config/cucumber.yml
+
+  Background:
+    Given "nmap" is installed
+    And the following environment variables:
+     | name      | environment_variable_name |
+     | hostname  | TARGET_HOSTNAME             |
+
+  Scenario: Verify server is open on expected ports
+    When I launch an "nmap" attack with:
+      """
+      nmap -F <hostname>
+      """
+   Then the output should contain "8008"
