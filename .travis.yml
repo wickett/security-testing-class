@@ -14,7 +14,7 @@ before_install:
 
 script:
   - pwd
-  - cat /etc/passwd
+  - cat /etc/hosts
   - ifconfig -a
   - docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/hello_world/hello-world.attack
 
