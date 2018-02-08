@@ -16,4 +16,5 @@ script:
   - cat ./config/cucumber.yml
   - docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/hello_world/hello-world.attack
   - docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/env-vars/port-env-vars.attack
+  - docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/ci/xss.attack
 
