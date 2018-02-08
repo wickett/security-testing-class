@@ -13,4 +13,6 @@ before_install:
 - docker ps -a
 
 script:
-- echo "ok"
+  - pwd
+  - docker run -t --rm -v $(pwd):/working -w /working gauntlt ./attacks/hello_world/hello-world.attack
+
