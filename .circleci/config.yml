@@ -6,6 +6,7 @@ jobs:
   build:
     machine: true
     steps:
+      - checkout
       - run:
           name: Pull images
           command: |
