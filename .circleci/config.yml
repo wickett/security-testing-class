@@ -20,3 +20,5 @@ jobs:
       - run: ./scripts/travis-config.sh
       - run: cat ./config/cucumber.yml
       - run: docker run -t --rm -v $(pwd):/working --network container:gruyere -w /working gauntlt/gauntlt ./attacks/hello_world/hello-world.attack
+      - run: docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/env-vars/port-env-vars.attack
+      - run: docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/ci/xss.attack
