@@ -4,7 +4,7 @@
 version: 2
 jobs:
   build:
-   machine: true
+    machine: true
     steps:
       - run:
           name: Pull images
