@@ -20,23 +20,23 @@ jobs:
     steps:
       - run:
         name: Pull images
-        command: |
-          docker pull karthequian/gruyere:latest
-          docker pull gauntlt/gauntlt
+          command: |
+            docker pull karthequian/gruyere:latest
+            docker pull gauntlt/gauntlt
       - run:
         name: Run gruyere
-        command: |
-          docker run --rm -d -p 8008:8008 --name gruyere karthequian/gruyere:latest
-          docker ps -a
+          command: |
+            docker run --rm -d -p 8008:8008 --name gruyere karthequian/gruyere:latest
+            docker ps -a
       - run: ./scripts/travis-config.sh
       - run: cat ./config/cucumber.yml
       - run:
         name: Run container
-        command: |
-          # creating dummy container which will hold a volume with config
-          docker create -v /working --name configs gauntlt/gauntlt ./attacks/hello_world/hello-world.attack
-          # copying config file into this volume
-          docker cp path/in/your/source/code/app_config.yml configs:/cfg
-          # starting application container using this volume
-          docker run --volumes-from configs  -w /working gauntlt/gauntlt
+          command: |
+            # creating dummy container which will hold a volume with config
+            docker create -v /working --name configs gauntlt/gauntlt ./attacks/hello_world/hello-world.attack
+            # copying config file into this volume
+            docker cp path/in/your/source/code/app_config.yml configs:/cfg
+            # starting application container using this volume
+            docker run --volumes-from configs  -w /working gauntlt/gauntlt
       - run: docker run -t --rm -v $(pwd):/working --network container:gruyere -w /working gauntlt/gauntlt ./attacks/hello_world/hello-world.attack
