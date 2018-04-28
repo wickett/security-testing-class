@@ -18,7 +18,6 @@ jobs:
     ####   /go/src/bitbucket.org/circleci/go-tool
     working_directory: /go/src/github.com/karthequian/security-testing-class
     steps:
-      - checkout
       - run:
         name: Pull images
         command: |
