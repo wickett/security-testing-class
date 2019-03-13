@@ -1,0 +1,24 @@
+# Golang CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-go/ for more details
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Pull images
+          command: |
+            docker pull karthequian/gruyere:latest
+            docker pull gauntlt/gauntlt
+      - run:
+          name: Run gruyere
+          command: |
+            docker run --rm -d -p 8008:8008 --name gruyere karthequian/gruyere:latest
+            docker ps -a
+      - run: ./scripts/travis-config.sh
+      - run: cat ./config/cucumber.yml
+      - run: docker run -t --rm -v $(pwd):/working --network container:gruyere -w /working gauntlt/gauntlt ./attacks/hello_world/hello-world.attack
+      - run: docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/env-vars/port-env-vars.attack
+      - run: docker run -t --rm -v $(pwd):/working -w /working gauntlt/gauntlt ./attacks/ci/xss.attack
